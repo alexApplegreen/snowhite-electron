@@ -1,40 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-
-  <button
-	class="pure-button pure-button-primary"
-	@click="partymode()"
-  >
-	Partymode!
-  </button>
+	<div class="MainWindow">
+		<h1>Hallo Welt</h1>
+		<button
+			class="pure-button pure-button-primary"
+			@click="partymode()"
+		>
+			Partymode!
+		</button>
+	</div> 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import swal from 'sweetalert2'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
   methods: {
-	partymode() {
-		swal.fire("Partymode, Bitches!");
-	}
+    partymode() {
+      swal.fire("Partymode, Bitches!");
+    }
   }
 }
 </script>
 
 <style>
 @import "~purecss";
+
+.MainWindow {
+	background-color: black;
+	text-align: center;
+	color: aliceblue;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
 }
 </style>

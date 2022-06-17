@@ -1,25 +1,21 @@
 <template>
 	<div class="MainWindow">
 		<h1>Hallo Welt</h1>
-		<button
-			class="pure-button pure-button-primary"
-			@click="partymode()"
-		>
-			Partymode!
-		</button>
 	</div> 
 </template>
 
 <script>
-import swal from 'sweetalert2'
 
 export default {
-  name: 'App',
-  methods: {
-    partymode() {
-      swal.fire("Partymode, Bitches!");
-    }
-  }
+	name: 'App',
+	data() {
+		return {
+			
+		}
+	},
+	methods: {
+		
+	}
 }
 </script>
 
@@ -27,15 +23,23 @@ export default {
 @import "~purecss";
 
 .MainWindow {
-	background-color: black;
 	text-align: center;
 	color: aliceblue;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: 1080px;
+	width: 1920px;
+	background-color: black !important;
+}
+
+.forecast_embed {
+	position: absolute;
+	bottom: 0;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 </style>

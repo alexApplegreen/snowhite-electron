@@ -1,6 +1,17 @@
 <template>
 	<div class="MainWindow">
-		<h1>Hallo Welt</h1>
+		<div class="clock">
+			<h1 class="widgetHeader">Clock</h1>
+		</div>
+		<div class="weather">
+			<h1 class="widgetHeader">Weather</h1>
+		</div>
+		<div class="mails">
+			<h1 class="widgetHeader">Mails</h1>
+		</div>
+		<div class="calendar">
+			<h1 class="widgetHeader">Calendar</h1>
+		</div>
 	</div> 
 </template>
 
@@ -23,18 +34,57 @@ export default {
 @import "~purecss";
 
 .MainWindow {
-	text-align: center;
 	color: aliceblue;
 	overflow-y: hidden;
 	overflow-x: hidden;
 	height: 1080px;
 	width: 1920px;
-	background-color: black !important;
+	background-color: black;
 }
 
-.forecast_embed {
+.widgetHeader {
+	color:aliceblue;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.clock {
 	position: absolute;
+	height: 150px;
+	width: 300px;
+	border: 1px solid white;
+	border-radius: 4px;
+	top: 0;
+	left: 0;
+}
+
+.weather {
+	position: absolute;
+	height: 150px;
+	width: 99%;
+	border: 1px solid white;
+	border-radius: 4px;
 	bottom: 0;
+}
+
+.mails {
+	position: absolute;
+	height: 150px;
+	width: 300px;
+	border: 1px solid white;
+	border-radius: 4px;
+	right: 0;
+	top: 0;
+}
+
+.calendar {
+	position: absolute;
+	height: 500px;
+	width: 300px;
+	border: 1px solid white;
+	border-radius: 4px;
+	right: 0;
+	top: 300px;
 }
 
 #app {

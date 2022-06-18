@@ -5,7 +5,11 @@
 			<h1 style="margin-top: 10px; margin-left: 10px;">{{ time_str }}</h1>
 		</div>
 		<div class="weather">
-			<h1 class="widgetHeader">Weather</h1>
+			<img
+				class="weatherIcon"
+				v-if="is_sunny" 
+				src="./assets/sun.png"
+			/>
 		</div>
 		<div class="mails">
 			<h1 class="widgetHeader">Mails</h1>
@@ -17,27 +21,53 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
 	name: 'App',
 	mounted() {
+		this.testConnection();
 		this.getTime();
+		this.getWeather();
 	},
 	data() {
 		return {
+			error_present: false,
+			error_message: "",
+
 			datetime: undefined,
 			date_str: "",
-			time_str: "",	
+			time_str: "",
+
+			weather_req_url: "https://api.openweathermap.org/data/2.5/weather?lat=52.279911&lon=8.047179&units=metric&appid=375424fb53107d54d2fb666df917ff61&lang=de",
+			is_sunny: true,
+			is_cloudy: false
 		}
 	},
 	methods: {
+		testConnection() {
+			// TODO
+		},
+
 		getTime() {	
 			setInterval(() => {
 				this.datetime = new Date();
 				this.time_str = this.datetime.toLocaleTimeString();
 				this.date_str = this.datetime.toLocaleDateString();
 			}, 1000)
-		}	
+		},
+
+		getWeather() {
+			setInterval(() => {
+					axios.get(this.weather_req_url).then((res) => {
+					console.log(res);
+					// TODO parse and display
+				}).catch(() => {
+					this.error_present = true;
+					this.error_message = "Could not retrieve Weather information";
+				});
+			}, 1000 * 60)
+		}
 	}
 }
 </script>
@@ -75,6 +105,12 @@ export default {
 	border: 1px solid white;
 	border-radius: 4px;
 	bottom: 0;
+}
+
+.weatherIcon {
+	height: 130px;
+	margin-left: 10px;
+	margin-top:10px
 }
 
 .mails {

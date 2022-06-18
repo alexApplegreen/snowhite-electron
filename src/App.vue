@@ -1,7 +1,8 @@
 <template>
 	<div class="MainWindow">
 		<div class="clock">
-			<h1 class="widgetHeader">Clock</h1>
+			<h3 style="margin-top: 10px; margin-left: 10px;">{{ date_str }}</h3>
+			<h1 style="margin-top: 10px; margin-left: 10px;">{{ time_str }}</h1>
 		</div>
 		<div class="weather">
 			<h1 class="widgetHeader">Weather</h1>
@@ -19,13 +20,24 @@
 
 export default {
 	name: 'App',
+	mounted() {
+		this.getTime();
+	},
 	data() {
 		return {
-			
+			datetime: undefined,
+			date_str: "",
+			time_str: "",	
 		}
 	},
 	methods: {
-		
+		getTime() {	
+			setInterval(() => {
+				this.datetime = new Date();
+				this.time_str = this.datetime.toLocaleTimeString();
+				this.date_str = this.datetime.toLocaleDateString();
+			}, 1000)
+		}	
 	}
 }
 </script>
@@ -52,8 +64,6 @@ export default {
 	position: absolute;
 	height: 150px;
 	width: 300px;
-	border: 1px solid white;
-	border-radius: 4px;
 	top: 0;
 	left: 0;
 }

@@ -69,12 +69,18 @@ export default {
 			// TODO
 		},
 
+		/**
+		 * gets the current time and updates date string and time string
+		 */
 		getTime() {	
 			this.datetime = new Date();
 			this.time_str = this.datetime.toLocaleTimeString();
 			this.date_str = this.datetime.toLocaleDateString();
 		},
 
+		/**
+		 * gets the current weather from openweathermap.org
+		 */
 		getWeather() {
 			axios.get(this.weather_req_url).then((res) => {
 				this.description = res.data["weather"][0]["description"];
@@ -100,6 +106,9 @@ export default {
 			});
 		},
 
+		/**
+		 * Sets an interval for time and weather updates
+		 */
 		startUpdates() {
 			setInterval(() => {
 				this.getTime();

@@ -4,7 +4,7 @@
 			<h3 style="margin-top: 10px; margin-left: 10px;">{{ date_str }}</h3>
 			<h1 style="margin-top: 10px; margin-left: 10px;">{{ time_str }}</h1>
 		</div>
-		<h1 class="weatherHeader" style="color: aliceblue">Wetter in {{ location }}</h1>
+		<h2 class="weatherHeader" style="color: aliceblue">Wetter in {{ location }}</h2>
 		<div class="weather">
 			<img
 				class="weatherIcon"
@@ -16,11 +16,16 @@
 				v-if="is_cloudy"
 				src="./assets/cloud.png"
 			/>
+			<img
+				class="weatherIcon"
+				v-if="is_rainy"
+				src="./assets/rain.png" 
+			/>
 			<div class="weatherData" style="display: inline-block; margin-left: 10px">
-				<h1 style="position: absolute; top: 0">{{ description }}</h1>
-				<h1 style="position: absolute; top: 35px">{{ temperature }}</h1>
-				<h3 style="position: absolute; top: 80px">Max: {{ temp_max }}</h3>
-				<h3 style="position: absolute; top: 100px">Min: {{ temp_min }}</h3>
+				<h1 style="position: absolute; top: 0; margin-left: 20px;">{{ description }}</h1>
+				<h1 style="position: absolute; top: 35px; margin-left: 20px;">{{ temperature }}</h1>
+				<h3 style="position: absolute; top: 80px; margin-left: 20px;">Max: {{ temp_max }}</h3>
+				<h3 style="position: absolute; top: 100px; margin-left: 20px;">Min: {{ temp_min }}</h3>
 			</div>
 			
 		</div>
@@ -42,6 +47,7 @@ export default {
 		this.testConnection();
 		this.getTime();
 		this.getWeather();
+		this.getForecast();
 
 		this.startUpdates();
 	},
@@ -55,8 +61,10 @@ export default {
 			time_str: "",
 
 			weather_req_url: "https://api.openweathermap.org/data/2.5/weather?lat=52.279911&lon=8.047179&units=metric&lang=de&appid=375424fb53107d54d2fb666df917ff61",
+			weather_forecast_url: "https://api.openweathermap.org/data/2.5/forecast/daily?lat=52.279911&lon=8.047179&cnt=4&units=metric&lang=de&appid=375424fb53107d54d2fb666df917ff61",
 			is_sunny: false,
 			is_cloudy: false,
+			is_rainy: false,
 			description: "",
 			temperature: "",
 			temp_min: "",
@@ -89,10 +97,17 @@ export default {
 				if (main === "Clouds") {
 					this.is_cloudy = true;
 					this.is_sunny = false;
+					this.is_rainy = false;
 				}
 				else if (main === "Sun") {
 					this.is_cloudy = false;
 					this.is_sunny = true;
+					this.is_rainy = false;
+				}
+				else if (main === "Rain") {
+					this.is_cloudy = false;
+					this.is_sunny = false;
+					this.is_rainy = true;
 				}
 				this.temperature = res.data["main"]["temp"] + " °C";
 				this.temp_max = res.data["main"]["temp_max"] + " °C";
@@ -103,6 +118,15 @@ export default {
 				this.error_present = true;
 				console.warn(err);
 				this.error_message = "Could not retrieve Weather information";
+			});
+		},
+
+		getForecast() {
+			axios.get(this.weather_forecast_url).then((res) => {
+				// TODO
+				console.log(res);
+			}).catch((err) => {
+				console.warn(err);
 			});
 		},
 
@@ -166,7 +190,7 @@ export default {
 .weatherHeader {
 	position: absolute;
 	margin-left: 10px;
-	bottom: 130px;
+	bottom: 135px;
 }
 
 .mails {
